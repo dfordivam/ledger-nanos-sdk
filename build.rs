@@ -1,6 +1,5 @@
 extern crate cc;
 use std::path::PathBuf;
-use std::process::Command;
 use std::{
     env,
     error::Error,
@@ -10,18 +9,6 @@ use std::{
 
 fn main() -> Result<(), Box<dyn Error>> {
     let bolos_sdk = "./nanos-secure-sdk".to_string();
-
-    let output = Command::new("arm-none-eabi-gcc")
-        .arg("-print-sysroot")
-        .output()
-        .expect("failed");
-
-    let sysroot = std::str::from_utf8(&output.stdout).unwrap().trim();
-    let gcc_toolchain = if sysroot.is_empty() {
-        String::from("/usr/include/")
-    } else {
-        format!("{}/include", sysroot)
-    };
 
     let mut command = cc::Build::new()
         .compiler("clang")
@@ -70,7 +57,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         .define("HAVE_USB_APDU", None)
         .define("IO_USB_MAX_ENDPOINTS", Some("6"))
         .define("IO_SEPROXYHAL_BUFFER_SIZE_B", Some("128"))
-        .include(gcc_toolchain)
         .include(format!("{}/include", bolos_sdk))
         .include(format!("{}/lib_stusb", bolos_sdk))
         .include(format!("{}/lib_stusb_impl", bolos_sdk))
