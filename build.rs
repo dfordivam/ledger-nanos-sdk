@@ -11,8 +11,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let bolos_sdk = "./nanos-secure-sdk".to_string();
 
     let mut command = cc::Build::new()
-        .compiler("clang")
-        .target("thumbv6m-none-eabi")
         .file("./src/c/src.c")
         .file("./src/c/sjlj.s")
         .file(format!("{}/src/os_io_usb.c", bolos_sdk))
