@@ -69,9 +69,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         ))
         // More or less same flags as in the
         // C SDK Makefile.defines
-        .no_default_flags(true)
         .debug(true)
-        .pic(true)
+        .pic(false) // -fropi instead
         .flag("-fropi")
         .flag("--target=thumbv6m-none-eabi")
         .flag("-fomit-frame-pointer")
