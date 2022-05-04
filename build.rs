@@ -98,6 +98,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .flag("-Wno-duplicate-decl-specifier")
         .flag("-Wno-#warnings")
         .flag("-Wno-int-conversion")
+        .flag("-g")
         .clone();
 
     let mut makefile = File::open(format!("{}/Makefile.conf.cx", bolos_sdk)).unwrap();
