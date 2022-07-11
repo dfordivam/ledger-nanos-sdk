@@ -3,16 +3,19 @@
 #![feature(custom_test_frameworks)]
 #![reexport_test_harness_main = "test_main"]
 #![test_runner(sdk_test_runner)]
-#![feature(asm)]
-#![feature(const_panic)]
-#![cfg_attr(not(feature = "pre1_54"), feature(const_fn_trait_bound))]
+#![feature(core_ffi_c)]
 
 pub mod bindings;
+
+#[cfg(nanox)]
+pub mod ble;
+
 pub mod buttons;
 pub mod ecc;
 pub mod io;
 pub mod nvm;
 pub mod random;
+pub mod screen;
 pub mod seph;
 pub mod usbbindings;
 
@@ -44,6 +47,9 @@ macro_rules! set_panic {
 
 /// Debug 'print' function that uses ARM semihosting
 /// Prints only strings with no formatting
+#[cfg(feature = "speculos")]
+use core::arch::asm;
+
 #[cfg(feature = "speculos")]
 pub fn debug_print(s: &str) {
     let p = s.as_bytes().as_ptr();
