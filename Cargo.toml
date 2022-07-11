@@ -1,3 +1,4 @@
+cargo-features=["edition2021"]
 [package]
 name = "nanos_sdk"
 version = "0.1.0"
