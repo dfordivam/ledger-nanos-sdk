@@ -174,7 +174,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     // determine target
     let target = env::var_os("TARGET");
     let cx_makefile = match target.clone().unwrap().to_str().unwrap() {
-        "nanos" => finalize_nanos_configuration(&mut command, &bolos_sdk),
+        "thumbv6m-none-eabi" => finalize_nanos_configuration(&mut command, &bolos_sdk),
         "nanox" => finalize_nanox_configuration(&mut command, &bolos_sdk),
         "nanosplus" => finalize_nanosplus_configuration(&mut command, &bolos_sdk),
         _ => "".to_string(),
@@ -212,7 +212,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("cargo:rustc-link-search={}", out_dir.display());
     // copy
     let linkerscript = match target.unwrap().to_str().unwrap() {
-        "nanos" => "nanos_layout.ld",
+        "thumbv6m-none-eabi" => "nanos_layout.ld",
         "nanox" => "nanox_layout.ld",
         "nanosplus" => "nanosplus_layout.ld",
         _ => "",
