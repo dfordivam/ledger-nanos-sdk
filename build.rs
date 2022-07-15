@@ -114,7 +114,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let bolos_sdk = "./ledger-secure-sdk".to_string();
 
     let mut command = cc::Build::new()
-        .compiler("clang")
         .file("./src/c/src.c")
         .file("./src/c/sjlj.s")
         .file(format!("{}/src/os_io_usb.c", bolos_sdk))
